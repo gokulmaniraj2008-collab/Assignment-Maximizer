@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Non-Linear Programming Solver</title>
+<style>
+:root{--g:#247a45;--gl:#eaf7ef;--ink:#183126;--muted:#68766e;--line:#dce8df;--bg:#f5f8f5;--card:#fff;--warn:#fff6df}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+header{background:linear-gradient(135deg,#185a34,#348c56);color:#fff;padding:34px 18px}.wrap{max-width:1050px;margin:auto;padding:0 18px}h1{font-size:clamp(28px,5vw,46px);margin:0 0 8px}header p{margin:0;opacity:.92}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin:18px 0;box-shadow:0 7px 24px #163a250a}h2{margin:0 0 10px}.equation{font-size:clamp(19px,3vw,26px);font-weight:750;text-align:center;padding:18px;background:#f2f8f3;border-radius:14px;margin:12px 0}.constraints{display:grid;gap:9px;font-size:18px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.case{border:1px solid var(--line);border-radius:14px;padding:15px}.case h3{margin:0 0 7px}.case .value{font-size:22px;font-weight:850;color:var(--g)}.result{background:var(--gl);border:1px solid #cde5d5}.big{font-size:32px;font-weight:900;color:var(--g)}button{border:0;border-radius:11px;padding:12px 18px;font:inherit;font-weight:800;background:var(--g);color:white;cursor:pointer}.secondary{background:#edf3ee;color:var(--ink)}.muted{color:var(--muted);font-size:14px}.highlight{background:var(--warn);border-left:4px solid #d89d27;padding:12px 14px;border-radius:9px}.step{display:grid;grid-template-columns:38px 1fr;gap:12px;margin:14px 0}.num{width:34px;height:34px;border-radius:50%;background:var(--g);color:#fff;display:grid;place-items:center;font-weight:900}.hidden{display:none}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:600px}th,td{padding:10px;border:1px solid var(--line);text-align:left}th{background:var(--gl)}@media(max-width:680px){.grid{grid-template-columns:1fr}.card{padding:15px}}
+</style></head>
+<body>
+<header><div class="wrap"><h1>Non-Linear Programming Solver</h1><p>Learn the exact classroom problem step-by-step — with boundary cases and the final maximum.</p></div></header>
+<main class="wrap">
+<section class="card"><h2>Given Problem</h2><div class="equation">Max Z = 10x₁ + 10x₂ − x₁² − x₂²</div><div class="constraints"><div>x₁ + x₂ ≤ 8</div><div>−x₁ + x₂ ≤ 5</div><div>x₁, x₂ ≥ 0</div></div></section>
+<section class="card"><h2>1. Check the unconstrained optimum</h2><div class="step"><div class="num">1</div><div>∂Z/∂x₁ = 10 − 2x₁ = 0 → <b>x₁ = 5</b></div></div><div class="step"><div class="num">2</div><div>∂Z/∂x₂ = 10 − 2x₂ = 0 → <b>x₂ = 5</b></div></div><div class="highlight">(5,5) is not feasible because 5 + 5 = 10 &gt; 8. So the constrained maximum must lie on a boundary.</div></section>
+<section class="card"><h2>2. Check the important boundaries</h2><div class="grid">
+<div class="case"><h3>Boundary x₁ = 0</h3><p>Z = 10x₂ − x₂², with x₂ ≤ 5</p><div class="value">x₂ = 5 → Z = 25</div></div>
+<div class="case"><h3>Boundary x₂ = 0</h3><p>Z = 10x₁ − x₁², with x₁ ≤ 8</p><div class="value">x₁ = 5 → Z = 25</div></div>
+<div class="case"><h3>Boundary −x₁ + x₂ = 5</h3><p>x₂ = x₁ + 5. Feasible range gives the best endpoint x₁ = 1, x₂ = 6.</p><div class="value">Z = 33</div></div>
+<div class="case"><h3>Boundary x₁ + x₂ = 8</h3><p>x₂ = 8 − x₁</p><div class="value">x₁ = 4, x₂ = 4 → Z = 48</div></div>
+</div></section>
+<section class="card"><h2>3. Work the winning boundary</h2><div class="equation">x₂ = 8 − x₁</div><p>Substitute into the objective:</p><div class="equation">Z = 16 + 16x₁ − 2x₁²</div><p>Differentiate:</p><div class="equation">dZ/dx₁ = 16 − 4x₁ = 0 → x₁ = 4</div><p>Therefore:</p><div class="equation">x₂ = 8 − 4 = 4</div></section>
+<section class="card result"><h2>Final Answer</h2><div class="big">x₁ = 4 &nbsp;&nbsp; x₂ = 4</div><p>Maximum objective value:</p><div class="big">Z<sub>max</sub> = 48</div><p class="muted">All constraints are satisfied, and 48 is greater than the best values found on the other boundaries.</p></section>
+<section class="card"><h2>Seminar Explanation</h2><p><b>“First, I find the unconstrained stationary point, which is (5,5). Since it violates x₁+x₂≤8, I check the feasible boundaries. The boundary x₁+x₂=8 gives x₁=4 and x₂=4. Substituting these values gives Z=48, which is the highest feasible value. Therefore, the optimal solution is x₁=4, x₂=4 and Zmax=48.”</b></p></section>
+<section class="card"><h2>Try the concept</h2><p class="muted">The page above is built for this exact classroom example. Use the cases to explain why simply finding derivatives is not enough when constraints exist.</p><button onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">Show Final Answer ↓</button> <button class="secondary" onclick="window.print()">Print / Save PDF</button></section>
+</main></body></html>
